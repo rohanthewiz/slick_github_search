@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+#loginator {
+    float: right;
+    margin-right: 2em;
+}
