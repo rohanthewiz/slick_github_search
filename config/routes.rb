@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
-  get 'sessions/create'
+  # You can have the root of your site routed with "root"
+  root to: 'pages#home'
+  get 'pages/home', to: 'pages#home'
+  get 'pages/search', to: 'pages#search'
 
-  get 'pages/index'
+  get 'sessions/create', to: 'sessions#create'
+  get 'sessions/destroy', to: 'sessions#destroy'
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'pages#index'
 
-  get '/auth/:provider/callback', to: 'sessions#create'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
