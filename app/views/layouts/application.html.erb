@@ -19,7 +19,7 @@
   <% if logged_in? %>
     <span class="logged-in"><%= current_user.name %> signed in. <%= link_to 'Logout', :sessions_destroy %></span>
   <% else %>
-    <span class="logged-out">Please <%= link_to 'login', :pages_home %></span>
+    <span class="logged-out">Please <%= link_to 'login', '/auth/github' %></span>
   <% end %>
 </div>
 

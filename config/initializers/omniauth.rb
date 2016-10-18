@@ -1,5 +1,11 @@
 
+module SlickSearch
+  def self.config
+    @config ||= YAML.load_file("#{Rails.root}/config/oauth.yml")[Rails.env].symbolize_keys!
+  end
+end
+
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :twitter, 'E4ctWeMJ4E0NZg7dQk2a5UVcf', 'UKq9AHXNAEVibg6XpLH9mHIRFSv2dfGvEpJDEVVkiU6Rf0kyoi'
-  #ENV['TWITTER_KEY'], ENV['TWITTER_SECRET'] # Todo: fix for production
+  provider :github, SlickSearch.config[:github_client_id],
+                    SlickSearch.config[:github_client_secret]
 end
