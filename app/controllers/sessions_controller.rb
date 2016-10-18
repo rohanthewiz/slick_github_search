@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def create
     begin  # begin is required!
-      user = User.from_omniauth(request.env['omniauth.auth'])
+      user = User.from_omniauth(request.env['omniauth.auth'].deep_symbolize_keys)
       session[:user_id] = user.id
       flash[:success] = "Welcome #{user.name}!"
       redirect_to :pages_search
