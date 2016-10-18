@@ -6,7 +6,6 @@
   if @results && @client.last_response.rels.present?
     total_count = @results.total_count
     last_response = @client.last_response
-    #binding.pry
     number_of_pages = 1
     if last_response.rels[:last].present?
       number_of_pages = page_from_href(last_response.rels[:last])
@@ -21,24 +20,12 @@
       current_page = page_from_href(last_response.rels[:prev]) + 1
     end
 %>
+  <%= render partial: 'pagination',
+         locals: {total_count: total_count,
+                  number_of_pages: number_of_pages,
+                  current_page: current_page}
+  %>
 
-  <div class="pagination"><span class="total-count"><%= total_count %> results</span>
-    <% ellipsis_count = 0; ellipsis = false %>
-    <% for i in 1..number_of_pages %>
-      <% if number_of_pages >= 10 %>
-        <% if i > 2 && (current_page - i).abs > 2 && i < number_of_pages - 1 %>
-          <% ellipsis_count += 1; ellipsis = true %>
-          <% if ellipsis_count > 2 %>
-            <% next %>
-          <% end %>
-        <% else %>
-          <% ellipsis = false; ellipsis_count = 0 %>
-        <% end %>
-      <% end %>
-      <span class="page-number<%= i == current_page ? ' current' : '' %>">
-        <%= "#{ ellipsis ? '.' : i}" %></span>
-    <% end %>
-  </div>
 <% end %>
 
 <%= form_tag(pages_search_path, method: :get, id: 'pagination-form') do %>
@@ -49,11 +36,6 @@
   <%= text_field_tag 'language_filter', @language_filter %>
   <%= submit_tag 'Search Repos' %>
 <% end %>
-
-<!--<input id="search-term" placeholder="Repo name"><%= link_to pages_search_path %> &lt;!&ndash; <button id="search-button">Search</button>&ndash;&gt;-->
-<!--<div id="filters" style="display:none">-->
-<!--<input id="search-lang" placeholder="Computer language"><button id="filter-lang">Filter Language</button>-->
-<!--</div>-->
 
 <table id="results-list">
   <thead><tr><th>Name</th><th>Owner</th><th>Stars</th>

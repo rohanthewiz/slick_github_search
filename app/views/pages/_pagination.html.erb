@@ -1,0 +1,18 @@
+
+<div class="pagination"><span class="total-count"><%= total_count %> results</span>
+  <% ellipsis_count = 0; ellipsis = false %>
+  <% for i in 1..number_of_pages %>
+    <% if number_of_pages >= 10 %>
+      <% if i > 2 && (current_page - i).abs > 2 && i < number_of_pages - 1 %>
+        <% ellipsis_count += 1; ellipsis = true %>
+        <% if ellipsis_count > 2 %>
+          <% next %>
+        <% end %>
+      <% else %>
+        <% ellipsis = false; ellipsis_count = 0 %>
+      <% end %>
+    <% end %>
+    <span class="page-number<%= i == current_page ? ' current' : '' %>">
+        <%= "#{ ellipsis ? '.' : i}" %></span>
+  <% end %>
+</div>
