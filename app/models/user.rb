@@ -1,13 +1,16 @@
 class User < ActiveRecord::Base
   def self.from_omniauth(auth_hash)
-    find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider']) do |user|
-      token = auth_hash[:credentials][:token]
-      Rails.logger.info %(Github provided token is: #{token})
-      user.name = auth_hash[:info][:name]
-      user.location = auth_hash[:info][:location]
-      user.image_url = auth_hash[:info][:image]
-      user.url = auth_hash[:info][:urls]['Github']
-      user.save!
+    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider']) do |u|
+      u.name = auth_hash[:info][:name]
+      u.image_url = auth_hash[:info][:image]
+      u.url = auth_hash[:info][:urls]['Github']
     end
+    # We always want to update the attributes below
+    user.token = auth_hash[:credentials][:token]
+    Rails.logger.info %(Github provided token is: #{auth_hash[:credentials][:token]})
+    user.location = auth_hash[:extra][:raw_info][:location]
+    Rails.logger.info "user: #{user.inspect}"
+    user.save!
+    user
   end
 end

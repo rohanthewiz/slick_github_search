@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
       flash[:success] = "Welcome #{user.name}!"
       redirect_to :pages_search
         #render json: request.env['omniauth.auth'].to_json
-    rescue
-      flash[:warning] = 'There was error trying to authenticate you...'
+    rescue StandardError => e
+      flash[:warning] = "There was error trying to authenticate you...#{e}"
       redirect_to :pages_home #root_path
     end
   end
