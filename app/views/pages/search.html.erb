@@ -1,4 +1,52 @@
 <h3>Search</h3>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus et ipsum iste maxime minima mollitia qui reiciendis voluptas voluptatibus. At exercitationem fugiat ipsa nam quia quisquam, ratione reprehenderit rerum sed.
-</p>
+<!--GET /search/repositories-->
+<!--https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc-->
+<%
+  if @results
+    total_count = @results.total_count
+    last_response = @client.last_response
+    number_of_pages = if last_response.rels[:last]
+      last_response.rels[:last].href.match(/page=(\d+)/)[1].to_i
+    else
+      last_response.rels[:prev].href.match(/page=(\d+)/)[1].to_i + 1
+    end
+
+    puts "There are #{total_count} results, on #{number_of_pages} pages!"
+  end
+%>
+
+<div class="pagination">
+  <% for i in 1..number_of_pages %>
+    <span class="page-number"><%= "#{i}" %></span>
+  <% end %>
+</div>
+
+<%= form_tag(pages_search_path, method: :get, id: 'pagination-form') do %>
+  <%= label_tag 'search_term' %>
+  <%= text_field_tag 'search_term', @search_term %>
+  <%= hidden_field_tag('page') %>
+  <%= submit_tag 'Search Repos' %>
+<% end %>
+
+<!--<input id="search-term" placeholder="Repo name"><%= link_to pages_search_path %> &lt;!&ndash; <button id="search-button">Search</button>&ndash;&gt;-->
+<!--<div id="filters" style="display:none">-->
+<!--<input id="search-lang" placeholder="Computer language"><button id="filter-lang">Filter Language</button>-->
+<!--</div>-->
+
+<table>
+  <tr><th>Name</th><th>Owner</th><th>Description</th></tr>
+  <% @results&.items&.each do |row| %>
+    <tr><td><%= row[:name] %></td><td><%= row[:owner][:login] %></td><td><%= row[:description] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.page-number').on('click', function() {
+      $('#page').val(this.innerText);
+      $('#pagination-form').submit();
+    })
+  });
+</script>
