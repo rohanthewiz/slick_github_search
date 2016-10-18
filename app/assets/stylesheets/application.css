@@ -14,6 +14,10 @@
  *= require_self
  */
 
+body {
+    background-color: #bac9e7;
+}
+
 #loginator {
     float: right;
     margin-right: 2em;
