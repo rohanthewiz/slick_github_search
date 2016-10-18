@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_logged_in
-    redirect_to :root unless logged_in?
+    unless logged_in?
+      flash[:warn] = 'You must first login to view a restricted page'
+      redirect_to :root
+    end
   end
 end
