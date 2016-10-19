@@ -11,6 +11,7 @@ h3.page-title {
 
 .pagination {
   margin-left: $page-left-offset;
+  margin-bottom: 3px;
   .page-number {
     cursor: pointer;
     padding: 0.1em 0.2em;
@@ -22,12 +23,20 @@ h3.page-title {
   }
 }
 
-#pagination-form {
+#filter-controls {
   margin-left: $page-left-offset;
+  #search_term {
+    margin-right: 4px;
+  }
+  input {
+    font-family: Rubik;
+    font-size: 1rem;
+    padding-left: 0.2em;
+  }
 }
 
 #results-list {
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   margin-top: 3px;
   margin-left: $page-left-offset;
   padding: 0.2em;
@@ -38,15 +47,36 @@ h3.page-title {
     border-radius: 3px;
     border-bottom: 1px solid darken($table-heading-color, 8%);
     vertical-align: bottom;
+    th {
+      &.sortable {
+        cursor: pointer;
+      }
+    }
+    span.sort-asc {
+      &:after {
+        content: '\2191';
+      }
+    }
+    span.sort-desc {
+      &:after {
+        content: '\2193';
+      }
+    }
   }
   tr {
     vertical-align:top;
     border-bottom: 1px solid darken($page-background-color, 4%);
+  }
+  td {
+    font-size: 0.87rem;
   }
   td, th {
     text-align: left;
     padding-top: 0.4em;
     padding-left: 0.3em;
     padding-right: 1.1em;
+  }
+  .updated-at {
+    min-width: 80px;
   }
 }

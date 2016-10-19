@@ -3,6 +3,7 @@
 <head>
   <title>Ghsearch</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik|Source+Sans+Pro" rel="stylesheet">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -17,7 +18,7 @@
 </div>
 <div id="loginator">
   <% if logged_in? %>
-    <span class="logged-in"><%= current_user.name %> signed in. <%= link_to 'Logout', :sessions_destroy %></span>
+    <span class="logged-in"><%= current_user.name %> signed in &nbsp; <%= link_to 'Logout', :sessions_destroy %></span>
   <% else %>
     <span class="logged-out">Please <%= link_to 'login', '/auth/github' %></span>
   <% end %>

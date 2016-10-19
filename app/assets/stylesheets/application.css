@@ -16,6 +16,14 @@
 
 body {
     background-color: #bac9e7;
+    font-family: Rubik, Arial, sans-serif;
+    margin:0;
+    padding:4px 8px;
+    height: 97vh;
+}
+
+h1, h2, h3 {
+    font-family: Montserrat, Helvetica, sans-serif;
 }
 
 #loginator {

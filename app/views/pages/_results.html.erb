@@ -1,0 +1,21 @@
+
+<table id="results-list">
+  <thead><tr><th>Name</th><th>Owner</th>
+    <th class="stars-heading sortable"><span class="<%= active_sort?('stars', sort_by, sort_order) %>">Stars</span></th>
+    <th class="forks-heading sortable"><span class="<%= active_sort?('forks', sort_by, sort_order) %>">Forks</span></th>
+    <th>Language</th>
+    <th class="updated-at sortable"
+        title="Github is not sorting perfectly here (using pushed_at, since better results)">
+      <span class="<%= active_sort?('updated', sort_by, sort_order) %>">Updated</span></th>
+    <th>Description</th></tr>
+  </thead>
+  <% results&.items&.each do |row| %>
+    <tr><td><%= row[:name] %></td><td><%= row[:owner][:login] %></td>
+      <td><%= row[:stargazers_count] %></td>
+      <td><%= row[:forks_count] %></td>
+      <td><%= row[:language] %></td>
+      <td><%= Date.parse("#{row[:pushed_at]}").strftime("%F") %></td>
+      <td><%= truncate(row[:description], length: 248) %></td>
+    </tr>
+  <% end %>
+</table>
