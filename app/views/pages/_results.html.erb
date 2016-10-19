@@ -10,7 +10,7 @@
     <th>Description</th></tr>
   </thead>
   <% results&.items&.each do |row| %>
-    <tr><td><%= row[:name] %></td><td><%= row[:owner][:login] %></td>
+    <tr><td><a href="<%= row[:html_url] %>"><%= row[:name] %></a></td><td><%= row[:owner][:login] %></td>
       <td><%= row[:stargazers_count] %></td>
       <td><%= row[:forks_count] %></td>
       <td><%= row[:language] %></td>

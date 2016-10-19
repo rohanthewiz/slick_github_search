@@ -69,6 +69,12 @@ h3.page-title {
   }
   td {
     font-size: 0.87rem;
+    a {
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   td, th {
     text-align: left;
