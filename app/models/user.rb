@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  validates :provider, presence: true
+  validates :uid, presence: true
 
   def self.from_omniauth(auth_hash)
     user = find_or_create_by(uid: auth_hash[:uid], provider: auth_hash[:provider]) do |u|
@@ -6,6 +8,7 @@ class User < ActiveRecord::Base
       u.image_url = auth_hash[:info][:image]
       u.url = auth_hash[:info][:urls][:Github]
     end
+
     # We always want to update the attributes below
     user.token = auth_hash[:credentials][:token]
     user.location = auth_hash[:extra][:raw_info][:location]
