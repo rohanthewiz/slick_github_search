@@ -1,11 +1,11 @@
 
 module SlickSearch
-  def self.config
-    @config ||= YAML.load_file("#{Rails.root}/config/oauth.yml")[Rails.env].symbolize_keys!
-  end
+  # Best to use Environment vars
+  # def self.config
+  #   @config ||= YAML.load_file("#{Rails.root}/config/oauth.yml")[Rails.env].symbolize_keys!
+  # end
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :github, SlickSearch.config[:github_client_id],
-                    SlickSearch.config[:github_client_secret]
+  provider :github, ENV['OAUTH_CLIENT_ID'], ENV['OAUTH_CLIENT_SECRET']
 end
